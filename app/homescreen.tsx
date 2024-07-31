@@ -170,7 +170,9 @@ const HomeScreen = () => {
 
         <View style={[t.flex, t.flexRow, t.itemsCenter, t.justifyBetween, t.pX8]}>
           <Text style={[t.fontSemibold, t.text2xl, t.mB2, t.textLeft]}>Transaction</Text>
+          <Link href={'/statistics'}>
           <Text> - View All</Text>
+          </Link>
         </View>
 
         <FlatList
@@ -186,7 +188,7 @@ const HomeScreen = () => {
         <Link href="/homescreen">
           <Home style={[t.textGray800]} />
         </Link>
-        <Link href="/statistics">
+        <Link href="/qr">
           <ScanLine style={[t.textGray800]} />
         </Link>
         <Link href="/addNewCard">
