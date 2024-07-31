@@ -38,7 +38,6 @@ const QRScreen = () => {
         <Link href="/homescreen">
           <ArrowLeft style={[t.textGray800, t.w8, t.h8]} />
         </Link>
-        <Text style={[t.fontBold, t.textLg, t.textCenter, t.flex1]}>QR Scanner</Text>
       </View>
 
       <View style={[t.flex1, t.justifyCenter, t.itemsCenter]}>

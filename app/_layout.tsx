@@ -52,6 +52,9 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name='index' options={{headerShown:false}}/>
         <Stack.Screen name='homescreen' options={{headerShown:false}}/>
+        <Stack.Screen name='qr' options={{headerShown:false}}/>
+        <Stack.Screen name='statistics' options={{headerShown:false}}/>
+        <Stack.Screen name='addNewCard' options={{headerShown:false}}/>
       </Stack>
   );
 }
