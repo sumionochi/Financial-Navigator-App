@@ -34,11 +34,7 @@ const QRScreen = () => {
 
   return (
     <View style={[t.flex1, t.bgWhite]}>
-      <View style={[t.flexRow, t.itemsCenter, t.pX4, t.pY4]}>
-        <Link href="/homescreen">
-          <ArrowLeft style={[t.textGray800, t.w8, t.h8]} />
-        </Link>
-      </View>
+      
 
       <View style={[t.flex1, t.justifyCenter, t.itemsCenter]}>
         {!scanned ? (

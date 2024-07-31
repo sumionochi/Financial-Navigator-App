@@ -127,11 +127,6 @@ const HomeScreen = () => {
 
   return (
     <View style={[t.flex1, t.bgWhite]}>
-      <View style={[t.flexRow, t.itemsCenter, t.pX4, t.pY4]}>
-        <Link href="/">
-          <ArrowLeft style={[t.textGray800, t.w8, t.h8]} />
-        </Link>
-      </View>
       <ScrollView style={[t.flex1]}>
         <View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.p8]}>
           <View style={[t.flex, t.flexRow]}>
