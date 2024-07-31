@@ -1,11 +1,12 @@
 import React, { useRef, useEffect } from 'react';
-import { useAssets } from "expo-asset";
+import { View, Text, Animated } from 'react-native';
 import { Shield, ArrowDownLeft } from "lucide-react-native";
-import { View, Text, Animated } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { t } from 'react-native-tailwindcss';
 import { BlurView } from 'expo-blur';
+import { useWindowDimensions } from 'react-native';
+import { useAssets } from "expo-asset";
 import { Link } from "expo-router";
-
 
 const Index = () => {
     const [assets] = useAssets([
@@ -13,70 +14,67 @@ const Index = () => {
         require('@/assets/images/onboard1.png'),
     ]);
 
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-    const translateAnim = useRef(new Animated.Value(30)).current;
+    const { width } = useWindowDimensions();
+    const scaleAnim = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
-        Animated.timing(fadeAnim, {
-            toValue: 1,
-            duration: 1000,
+        const scale = width > 768 ? 2 : 1; 
+        Animated.timing(scaleAnim, {
+            toValue: scale,
+            duration: 300,
             useNativeDriver: true,
         }).start();
-
-        Animated.spring(translateAnim, {
-            toValue: 0,
-            useNativeDriver: true,
-        }).start();
-    }, [fadeAnim, translateAnim]);
+    }, [width]);
 
     if (!assets) {
         return null;
     }
 
     return (
-        <View style={{ flex: 1, padding: 32, backgroundColor: 'white', overflow: 'hidden', justifyContent: 'space-between', position: 'relative' }}>
-            <Animated.Text style={{ fontWeight: '500', fontSize: 24, paddingTop: 16, zIndex: 10, opacity: fadeAnim, transform: [{ translateY: translateAnim }] }}>
-                ProfitPilot.
-            </Animated.Text>
-            <Animated.View style={{ flexDirection: 'column', opacity: fadeAnim, transform: [{ translateY: translateAnim }] }}>
-                <Text style={{ fontWeight: '600', fontSize: 40, marginBottom: -8 }}>Your</Text>
-                <Text style={{ fontWeight: '700', fontSize: 40, marginBottom: -8 }}>Financial</Text>
-                <Text style={{ fontWeight: '600', fontSize: 40 }}>Navigator</Text>
-                <Text style={{ color: '#4A4A4A', marginTop: 16 }}>
+        <View style={[t.flex, t.p8, t.bgWhite, t.hFull, t.justifyBetween, t.relative, { overflow: 'hidden' }]}>
+            <Text style={[t.fontMedium, t.text2xl, t.pT4, t.z10]}>ProfitPilot.</Text>
+            <View style={[t.flex, t.flexCol]}>
+                <Text style={[t.fontSemibold, t.text5xl, t._mB2]}>Your</Text>
+                <Text style={[t.fontBold, t.text5xl, t._mB2]}>Financial</Text>
+                <Text style={[t.fontSemibold, t.text5xl]}>Navigator</Text>
+                <Text style={[t.textGray700, t.mT4]}>
                     Invest in projects that make a difference. Join us in supporting impactful initiatives and create a positive change in the world.
                 </Text>
-                <TouchableOpacity style={{ backgroundColor: '#1F1F1F', marginVertical: 20, borderRadius: 14, paddingVertical: 16, paddingHorizontal: 32, width: '100%', alignItems: 'center' }}>
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>
-                            Get Started
-                        </Text>
-                    </TouchableOpacity>
+                <Link href="/homescreen">
+                <TouchableOpacity style={[t.bgGray900, t.mY5, { borderRadius: 14 }, t.pY4, t.pX8, t.wFull, t.itemsCenter]}>
+                    <Text style={[t.textWhite, t.textLg, t.fontSemibold]}>
+                        Get Started
+                    </Text>
+                </TouchableOpacity>
+                </Link>
+            </View>
+
+            <Animated.View style={[{ transform: [{ scale: scaleAnim }] }, t.absolute, t.bgWhite, { backgroundColor: '#C8E9CA' }, { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }, { borderRadius: 14 }, t.p4, t.w56, t.right0, t.justifyCenter, { top: '36%', right: '20%', marginTop: -100 }]}>
+                <View style={[t.flexRow, t.itemsCenter, t.mB4]}>
+                    <Shield style={[t.w6, t.h6, t.mR2]} />
+                    <Text style={[t.textGray700, t.textBase]}>US Dollar</Text>
+                </View>
+                <Text style={[t.text4xl, t.fontBold, t.mB2]}>$40,500.80</Text>
+                <Text style={[t.textGray600, t.textSm]}>Account number **** 9934</Text>
             </Animated.View>
 
-            <Animated.View style={{ position: 'absolute', backgroundColor: '#C8E9CA', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10, borderRadius: 14, padding: 16, width: 224, justifyContent: 'center', top: '36%', right: '20%', marginTop: -100, opacity: fadeAnim, transform: [{ translateY: translateAnim }] }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-                    <Shield style={{ width: 24, height: 24, marginRight: 8 }} />
-                    <Text style={{ color: '#4A4A4A', fontSize: 16 }}>US Dollar</Text>
-                </View>
-                <Text style={{ fontSize: 32, fontWeight: '700', marginBottom: 8 }}>$40,500.80</Text>
-                <Text style={{ color: '#737373', fontSize: 14 }}>Account number **** 9934</Text>
+            <Animated.View style={[{ transform: [{ scale: scaleAnim }] }, t.absolute, { backgroundColor: 'rgba(255, 255, 255, 0.5)' }, { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }, { borderRadius: 14 }, t.p4, t.w56, t.right0, t.justifyCenter, { top: '25%', right: '-4%', marginTop: -100 }]}>
+                <BlurView intensity={80}>
+                    <View style={[t.flexRow, t.itemsCenter, t.mB4]}>
+                        <Shield style={[t.w6, t.h6, t.mR2]} />
+                        <Text style={[t.textGray700, t.textBase]}>US Dollar</Text>
+                    </View>
+                    <Text style={[t.text4xl, t.fontBold, t.mB2]}>$40,500.80</Text>
+                    <Text style={[t.textGray600, t.textSm]}>Account number **** 9934</Text>
+                </BlurView>
             </Animated.View>
 
-            <BlurView intensity={80} style={{ position: 'absolute', backgroundColor: 'rgba(255, 255, 255, 0.5)', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10, borderRadius: 14, padding: 16, width: 224, justifyContent: 'center', top: '25%', right: '-4%', marginTop: -100 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-                    <Shield style={{ width: 24, height: 24, marginRight: 8 }} />
-                    <Text style={{ color: '#4A4A4A', fontSize: 16 }}>US Dollar</Text>
-                </View>
-                <Text style={{ fontSize: 32, fontWeight: '700', marginBottom: 8 }}>$40,500.80</Text>
-                <Text style={{ color: '#737373', fontSize: 14 }}>Account number **** 9934</Text>
-            </BlurView>
-
-            <BlurView intensity={80} style={{ position: 'absolute', flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10, borderRadius: 14, padding: 8, width: 224, justifyContent: 'center', top: '56%', right: '25%', marginTop: -100, transform: [{ rotate: '15deg' }] }}>
-                <ArrowDownLeft style={{ marginRight: 4 }} />
-                <Text style={{ fontSize: 20, fontWeight: '700' }}>Request</Text>
-            </BlurView>
+            <Animated.View style={[{ transform: [{ scale: scaleAnim }] }, t.absolute, t.flex, t.itemsCenter, t.flexRow, { backgroundColor: 'rgba(255, 255, 255, 0.5)' }, { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }, { borderRadius: 14 }, t.p2, t.right0, t.justifyCenter, { top: '56%', right: '25%', marginTop: -100, transform: [{ rotate: '15deg' }] }]}>
+                <ArrowDownLeft style={[t.mR1]} />
+                <Text style={[t.textXl, t.fontBold]}>Request</Text>
+            </Animated.View>
         </View>
     );
 }
 
 export default Index;
-
