@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, TextInput, FlatList } from 'react-native';
+import { View, Text, ScrollView, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { t } from 'react-native-tailwindcss';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { PlusCircle, CircleUser, BellDot } from "lucide-react-native";
+import { PlusCircle, CircleUser, BellDot, Home, BarChart, CreditCard, ScanLine } from "lucide-react-native";
 import { useWindowDimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Shield, ArrowDownLeft } from "lucide-react-native";
 import { initialAccounts, Account, Transaction } from './data';
+import { Link } from 'expo-router';
 
 const HomeScreen = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -125,64 +126,84 @@ const HomeScreen = () => {
   );
 
   return (
-    <ScrollView style={[t.flex1, t.bgWhite]}>
-      <View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.p8]}>
-        <View style={[t.flex, t.flexRow]}>
-          <TouchableOpacity style={[t.mR2]}>
-            <CircleUser style={[t.w10, t.h10]} />
-          </TouchableOpacity>
-          <View>
-            <Text style={[t.textGray700]}>Welcome back</Text>
-            <Text style={[t.fontBold, t.textBase]}>Sarah Muller</Text>
+    <View style={[t.flex1, t.bgWhite]}>
+      <ScrollView style={[t.flex1]}>
+        <View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.p8]}>
+          <View style={[t.flex, t.flexRow]}>
+            <Link href="/" style={[t.mR2]}>
+              <CircleUser style={[t.w10, t.h10]} />
+            </Link>
+            <View>
+              <Text style={[t.textGray700]}>Welcome back</Text>
+              <Text style={[t.fontBold, t.textBase]}>Sarah Muller</Text>
+            </View>
           </View>
+          <BellDot />
         </View>
-        <BellDot />
-      </View>
-      
-      <Text style={[t.fontSemibold, t.text2xl, t.mB4, t.pX8]}>Account</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[t.pX8]}
-      >
-        {accounts.map((account) => renderAccountCard(account))}
+        
+        <Text style={[t.fontSemibold, t.text2xl, t.mB4, t.pX8]}>Account</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={[t.pX8]}
+        >
+          {accounts.map((account) => renderAccountCard(account))}
+        </ScrollView>
+
+        <View style={[t.flexRow, t.justifyBetween, t.pX8]}>
+          <TouchableOpacity style={[t.flex, t.flexRow, t.itemsCenter]}>
+            <ArrowDownLeft style={[t.textGray800, t.mR1]} />
+            <Text style={[t.textGray800, t.textBase]}>Request</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[t.itemsCenter, t.flex, t.flexRow]} onPress={() => bottomSheetRef.current?.expand()}>
+            <PlusCircle style={[t.textGray800, t.mR1]} />
+            <Text style={[t.textGray800, t.textBase]}>Transfer</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[t.itemsCenter, t.flex, t.flexRow, t.bgBlack, t.roundedFull, t.p4]} onPress={() => bottomSheetRef.current?.expand()}>
+            <PlusCircle style={[t.textGray800, t.textWhite]} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={[t.flex, t.mT6, t.justifyCenter, t.itemsCenter, t.p4]}>
+          <View style={[t.h1, t.bgGray400, t.w10, t.roundedFull]}></View>
+        </View>
+
+        <View style={[t.flex, t.flexRow, t.itemsCenter, t.justifyBetween, t.pX8]}>
+          <Text style={[t.fontSemibold, t.text2xl, t.mB2, t.textLeft]}>Transaction</Text>
+          <Text> - View All</Text>
+        </View>
+
+        <FlatList
+          data={transactions}
+          renderItem={renderTransaction}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={[t.pX8, t.mB8]}
+          scrollEnabled={false} 
+        />
       </ScrollView>
 
-      <View style={[t.flexRow, t.justifyBetween, t.pX8]}>
-        <TouchableOpacity style={[t.flex, t.flexRow, t.itemsCenter]}>
-          <ArrowDownLeft style={[t.textGray800, t.mR1]} />
-          <Text style={[t.textGray800, t.textBase]}>Request</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[t.itemsCenter, t.flex, t.flexRow]} onPress={() => bottomSheetRef.current?.expand()}>
-          <PlusCircle style={[t.textGray800, t.mR1]} />
-          <Text style={[t.textGray800, t.textBase]}>Transfer</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[t.itemsCenter, t.flex, t.flexRow, t.bgBlack, t.roundedFull, t.p4]} onPress={() => bottomSheetRef.current?.expand()}>
-          <PlusCircle style={[t.textGray800, t.textWhite]} />
-        </TouchableOpacity>
+      <View style={[t.flexRow, t.w56,t.justifyAround, t.itemsCenter, t.bgWhite, {borderRadius: 10}, t.p4,{ position: 'absolute', bottom: 20, left: '50%', transform: [{ translateX: -width * 0.3 }], right: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }]}>
+        <Link href="/homescreen">
+          <Home style={[t.textGray800]} />
+        </Link>
+        <Link href="/statistics">
+          <ScanLine style={[t.textGray800]} />
+        </Link>
+        <Link href="/addNewCard">
+          <CreditCard style={[t.textGray800]} />
+        </Link>
       </View>
 
-      <View style={[t.flex, t.mT6,t.justifyCenter, t.itemsCenter, t.p4]}>
-        <View style={[t.h1, t.bgGray400, t.w10, t.roundedFull]}></View>
-        </View>
-
-      <View style={[t.flex, t.flexRow, t.itemsCenter, t.justifyBetween, t.pX8]}>
-        <Text style={[t.fontSemibold, t.text2xl, t.mB2, t.textLeft]}>Transaction</Text>
-        <Text> - View All</Text>
-      </View>
-
-      <FlatList
-        data={transactions}
-        renderItem={renderTransaction}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={[t.pX8, t.mB8]}
-        scrollEnabled={false} 
-      />
-
-      <BottomSheet ref={bottomSheetRef} snapPoints={['1%', '50%']} index={-1}>
+      <BottomSheet 
+        ref={bottomSheetRef} 
+        snapPoints={['25%', '50%']} 
+        index={-1} 
+        enablePanDownToClose={true}
+        onClose={() => bottomSheetRef} 
+      >
         {renderBottomSheetContent()}
       </BottomSheet>
-    </ScrollView>
+    </View>
   );
 };
 
