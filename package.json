@@ -16,6 +16,8 @@
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",
     "expo": "~51.0.24",
+    "expo-asset": "~10.0.10",
+    "expo-av": "~14.0.6",
     "expo-dev-client": "~4.0.21",
     "expo-font": "~12.0.9",
     "expo-linking": "~6.3.1",
@@ -24,6 +26,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
+    "lucide-react-native": "^0.417.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.3",
@@ -33,8 +36,7 @@
     "react-native-screens": "3.31.1",
     "react-native-tailwindcss": "^1.1.11",
     "react-native-web": "~0.19.10",
-    "expo-av": "~14.0.6",
-    "expo-asset": "~10.0.10"
+    "expo-blur": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
