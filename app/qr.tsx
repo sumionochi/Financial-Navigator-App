@@ -34,7 +34,11 @@ const QRScreen = () => {
 
   return (
     <View style={[t.flex1, t.bgWhite]}>
-      
+      <View style={[t.pX4, t.pY4]}>
+        <Link href="/homescreen">
+          <ArrowLeft style={[t.textGray800, t.w8, t.h8]} />
+        </Link>
+      </View>
 
       <View style={[t.flex1, t.justifyCenter, t.itemsCenter]}>
         {!scanned ? (
@@ -48,7 +52,10 @@ const QRScreen = () => {
             <Text style={[t.textBase, t.mB4]}>{qrData}</Text>
             <TouchableOpacity
               style={[t.bgBlue600, t.pY4, t.pX8, t.roundedLg]}
-              onPress={() => setScanned(false)}
+              onPress={() => {
+                setScanned(false);
+                setQrData(null); 
+              }}
             >
               <Text style={[t.textWhite, t.textCenter, t.fontSemibold]}>Scan Again</Text>
             </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, ScrollView, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TextInput, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import { t } from 'react-native-tailwindcss';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { PlusCircle, CircleUser, BellDot, Home, BarChart, CreditCard, ScanLine, ArrowLeft } from "lucide-react-native";
@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Shield, ArrowDownLeft } from "lucide-react-native";
 import { initialAccounts, Account, Transaction } from './data';
 import { Link } from 'expo-router';
+import { rgbaColor } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 
 const HomeScreen = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -131,7 +132,7 @@ const HomeScreen = () => {
         <View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.p8]}>
           <View style={[t.flex, t.flexRow]}>
             <Link href="/" style={[t.mR2]}>
-              <CircleUser style={[t.w10, t.h10]} />
+              <CircleUser style={[t.w10, t.h10, t.textBlack]} />
             </Link>
             <View>
               <Text style={[t.textGray700]}>Welcome back</Text>
@@ -184,16 +185,38 @@ const HomeScreen = () => {
         />
       </ScrollView>
 
-      <View style={[t.flexRow, t.w56,t.justifyAround, t.itemsCenter, t.bgWhite, {borderRadius: 10}, t.p4,{ position: 'absolute', bottom: 20, left: '50%', transform: [{ translateX: -width * 0.3 }], right: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }]}>
+      <View style={[
+          t.flexRow, 
+          t.justifyAround, 
+          t.itemsCenter, 
+          t.bgWhite, 
+          { 
+            borderRadius: 10, 
+            paddingVertical: 10, 
+            paddingHorizontal: 20,
+            position: 'absolute', 
+            bottom: 20, 
+            left: '50%', 
+            transform: [{ translateX: -0.5 * (Dimensions.get('window').width - 40) }], 
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            width: Dimensions.get('window').width - 40, 
+          }
+        ]}>
+        <View style={[t.flex, t.flexRow, t.justifyBetween, t.roundedLg,{shadowColor: '#000', 
+            shadowOffset: { width: 0, height: 4 }, 
+            shadowOpacity: 0.3, 
+            shadowRadius: 10,paddingVertical: 10, 
+            paddingHorizontal: 20}, t.bgWhite]}>
         <Link href="/homescreen">
-          <Home style={[t.textGray800]} />
+          <Home style={[t.textGray800, t.mR8]} />
         </Link>
         <Link href="/qr">
           <ScanLine style={[t.textGray800]} />
         </Link>
         <Link href="/addNewCard">
-          <CreditCard style={[t.textGray800]} />
+          <CreditCard style={[t.textGray800, t.mL8]} />
         </Link>
+        </View>
       </View>
 
       <BottomSheet 

@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, FlatList, TextInput } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, FlatList, TextInput, Dimensions } from 'react-native';
 import { t } from 'react-native-tailwindcss';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link, useRouter } from 'expo-router';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { initialAccounts, Account } from './data';
-import { BellDot, CircleUser, CreditCard } from 'lucide-react-native';
+import { BellDot, CircleUser, CreditCard, Shield } from 'lucide-react-native';
 import { useWindowDimensions } from 'react-native';
 
 const AddNewCardScreen = () => {
@@ -59,11 +59,14 @@ const AddNewCardScreen = () => {
   };
 
   const renderCard = ({ item }: { item: Account }) => (
-    <View key={item.id} style={[t.bgWhite, t.p4, t.roundedLg, t.mB4, { backgroundColor: item.backgroundColor }]}>
-      <Text style={[t.fontBold, t.textLg]}>{item.currency}</Text>
-      <Text style={[t.textBase, t.mT2]}>{item.balance}</Text>
-      <Text style={[t.textGray600, t.mT2]}>{item.accountNumber}</Text>
-      <Text style={[t.textGray600, t.mT2]}>Valid Thru {item.validThru}</Text>
+    <View style={[ t.bgWhite, { backgroundColor: item.backgroundColor }, { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }, { borderRadius: 14 }, t.p4, t.w56, t.justifyCenter, t.mB4, t.wFull]}>
+        <View style={[t.flexRow, t.itemsCenter, t.mB4]}>
+            <Shield style={[t.w6, t.h6, t.mR2]} />
+            <Text style={[t.textGray700, t.textBase]}>{item.currency}</Text>
+        </View>
+        <Text style={[t.text4xl, t.fontBold, t.mB2]}>{item.balance}</Text>
+        <Text style={[t.textGray600, t.textSm]}>Account number {item.accountNumber}</Text>
+        <Text style={[t.textGray600, t.mT2]}>Valid Thru {item.validThru}</Text>
     </View>
   );
 
@@ -135,10 +138,30 @@ const AddNewCardScreen = () => {
       />
 
       <TouchableOpacity
-        style={[t.flexRow, {backgroundColor: '#87DCFB'}, t.w56, t.justifyAround, t.itemsCenter, {borderRadius: 10}, t.p4,{ position: 'absolute', bottom: 20, left: '50%', transform: [{ translateX: -width * 0.3 }], right: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }]}
+        style={[
+          t.flexRow, 
+          t.justifyAround, 
+          t.itemsCenter, 
+          t.bgWhite, 
+          { 
+            borderRadius: 10, 
+            paddingVertical: 10, 
+            paddingHorizontal: 20,
+            position: 'absolute', 
+            bottom: 20, 
+            left: '50%', 
+            transform: [{ translateX: -0.5 * (Dimensions.get('window').width - 40) }], 
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            width: Dimensions.get('window').width - 40, 
+          }
+        ]}
         onPress={() => bottomSheetRef.current?.expand()}
       >
-        <Text style={[t.textBlack, t.textCenter, t.fontBold]}>Add New Card</Text>
+        <Text style={[t.textBlack, t.textCenter, t.fontBold, {backgroundColor: '#87DCFB'}, t.p4, t.roundedLg, {shadowColor: '#000', 
+            shadowOffset: { width: 0, height: 4 }, 
+            shadowOpacity: 0.3, 
+            shadowRadius: 10,paddingVertical: 10, 
+            paddingHorizontal: 20}, t.textLg]}>Add New Card</Text>
       </TouchableOpacity>
 
       <BottomSheet ref={bottomSheetRef} snapPoints={['1%', '100%']} index={-1}>

@@ -31,23 +31,26 @@ const Index = () => {
     }
 
     return (
-        <View style={[t.flex, t.p8, t.bgWhite, t.hFull, t.justifyBetween, t.relative, { overflow: 'hidden' }]}>
+        <View style={[t.flex, t.p8,t.bgWhite, t.hFull, t.justifyBetween, t.relative, { overflow: 'hidden' }]}>
             <Text style={[t.fontMedium, t.text2xl, t.pT4, t.z10]}>ProfitPilot.</Text>
-            <View style={[t.flex, t.flexCol]}>
+            <View style={[t.flex, t.flexCol, t.wFull]}>
                 <Text style={[t.fontSemibold, t.text5xl, t._mB2]}>Your</Text>
                 <Text style={[t.fontBold, t.text5xl, t._mB2]}>Financial</Text>
                 <Text style={[t.fontSemibold, t.text5xl]}>Navigator</Text>
                 <Text style={[t.textGray700, t.mT4]}>
                     Invest in projects that make a difference. Join us in supporting impactful initiatives and create a positive change in the world.
                 </Text>
-                <Link href="/homescreen">
-                <TouchableOpacity style={[t.bgGray900, t.mY5, { borderRadius: 14 }, t.pY4, t.pX8, t.wFull, t.itemsCenter]}>
+                <View style={[t.wFull, t.flex, t.justifyCenter, t.itemsCenter, t.bgGray900, t.mY5, { borderRadius: 14 }, t.pY4, t.pX8, t.wFull]}>
+                    <TouchableOpacity style={[t.bgGray900, t.wFull, t.itemsCenter]}>
+                    <Link href="/homescreen" style={[t.wFull]}>
                     <Text style={[t.textWhite, t.textLg, t.fontSemibold]}>
                         Get Started
                     </Text>
-                </TouchableOpacity>
-                </Link>
+                    </Link>
+                    </TouchableOpacity>
+                </View>
             </View>
+
 
             <Animated.View style={[{ transform: [{ scale: scaleAnim }] }, t.absolute, t.bgWhite, { backgroundColor: '#C8E9CA' }, { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10 }, { borderRadius: 14 }, t.p4, t.w56, t.right0, t.justifyCenter, { top: '36%', right: '20%', marginTop: -100 }]}>
                 <View style={[t.flexRow, t.itemsCenter, t.mB4]}>

@@ -65,7 +65,7 @@ const StatisticsScreen = () => {
   };
 
   return (
-    <View style={[t.flex1, t.bgWhite]}>
+    <View style={[t.flex1, t.bgWhite, ]}>
         <View style={[t.pX8]}>
         <View style={[t.flexRow, t.itemsCenter, t.justifyCenter, t.pX4, t.pY4, t.relative]}>
             <Link style={[t.absolute, t.left0]} href="/homescreen">
@@ -120,34 +120,37 @@ const StatisticsScreen = () => {
       </ScrollView>
 
       <View style={[
-        t.flexRow, 
-        t.w56, 
-        t.justifyAround, 
-        t.itemsCenter, 
-        t.bgWhite, 
-        { borderRadius: 10 }, 
-        t.p4, 
-        { 
-          position: 'absolute', 
-          bottom: 20, 
-          left: '50%', 
-          transform: [{ translateX: -width * 0.3 }], 
-          right: 20, 
-          shadowColor: '#000', 
-          shadowOffset: { width: 0, height: 4 }, 
-          shadowOpacity: 0.3, 
-          shadowRadius: 10 
-        }
-      ]}>
+          t.flexRow, 
+          t.justifyAround, 
+          t.itemsCenter, 
+          t.bgWhite, 
+          { 
+            borderRadius: 10, 
+            paddingVertical: 10, 
+            paddingHorizontal: 20,
+            position: 'absolute', 
+            bottom: 20, 
+            left: '50%', 
+            transform: [{ translateX: -0.5 * (Dimensions.get('window').width - 40) }], 
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            width: Dimensions.get('window').width - 40, 
+          }
+        ]}>
+        <View style={[t.flex, t.flexRow, t.justifyBetween, t.roundedLg,{shadowColor: '#000', 
+            shadowOffset: { width: 0, height: 4 }, 
+            shadowOpacity: 0.3, 
+            shadowRadius: 10,paddingVertical: 10, 
+            paddingHorizontal: 20}, t.bgWhite]}>
         <Link href="/homescreen">
-          <Home style={[t.textGray800]} />
+          <Home style={[t.textGray800, t.mR8]} />
         </Link>
         <Link href="/qr">
           <ScanLine style={[t.textGray800]} />
         </Link>
         <Link href="/addNewCard">
-          <CreditCard style={[t.textGray800]} />
+          <CreditCard style={[t.textGray800, t.mL8]} />
         </Link>
+        </View>
       </View>
     </View>
   );
